@@ -14,48 +14,25 @@ if ! ICON=$(zenity --file-selection --title="Icon auswählen"); then
 fi
 echo "icon ok"
 
-#detecting software for proper filehandling
-
-if [[ "$EXEC" =~ ".sh" ]]; then 
-    EXECSTRG="sh " && echo "found exec sh"
-fi
-
-
-if [[ "$EXEC" =~ ".mp3" ]]; then 
-    EXECSTRG="vlc " && echo "found exec vlc"
-fi
-
-if [[ "$EXEC" =~ ".xls" ]]; then 
-    EXECSTRG="ooffice " && echo "found exec office"
-fi
-
-if [[ "$EXEC" =~ ".odt" ]]; then 
-    EXECSTRG="ooffice " && echo "found exec office"
-fi
-
-if [[ "$EXEC" =~ ".doc" ]]; then 
-    EXECSTRG="ooffice " && echo "found exec office"
-fi
 
 
 
 
-
-#create desktop file and fill it up
+#create desktop file and fill it up, open the software with MIME-TYPE
 echo "creating .desktop file"
 touch ~/$NAME.desktop 
 echo "file created"
 echo "[Desktop Entry]"                  >> ~/$NAME.desktop
 echo "Name=$NAME"                       >> ~/$NAME.desktop
-echo "Exec=$EXECSTRG${EXEC// /\\ }"     >> ~/$NAME.desktop
+echo "Exec=xdg-open ${EXEC// /\\ }"     >> ~/$NAME.desktop
 echo "Icon=${ICON// /\\ }"              >> ~/$NAME.desktop
 echo "Terminal=false"                   >> ~/$NAME.desktop
 echo "Type=Application"                 >> ~/$NAME.desktop
 echo "file creation done"
 
-#move file to ~/.local/share/applications
-
-mv ~/$NAME.desktop ~/.local/share/applications
+#move file to ~/.local/share/applications and set the executable bit
+chmod +x $HOME/$NAME.desktop
+mv $HOME/$NAME.desktop $HOME/.local/share/applications
 echo "file moved"
 
 zenity --info --text "Alles erledigt!"
