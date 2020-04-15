@@ -27,6 +27,9 @@ if ! ICON=$(zenity --file-selection --title="Icon auswählen")
 					video/*) ICON=/usr/share/icons/Adwaita/scalable/mimetypes/video-x-generic-symbolic.svg
 					;;
 				esac
+			
+		fi
+fi
 ###################################################################Figure out, whether it is a shell script and if yes execute it accordingly!#######################################################
 				if [[ "$EXEC" =~ ".sh" ]]; then 
 					SLASHNUMBER=$(echo $EXEC  | grep -ho '/' | wc -w)
@@ -51,9 +54,7 @@ if ! ICON=$(zenity --file-selection --title="Icon auswählen")
 					TERMINAL=true
 					ICON=/usr/share/icons/Adwaita/scalable/mimetypes/application-x-executable-symbolic.svg
 				fi
-###############################################################End of the shellscript section, why didn't I use xterm instead of all this, would ve been easier...#######################################				
-		fi
-fi
+###############################################################End of the shellscript section, why didn't I use xterm instead of all this, would ve been easier...#######################################	
 #create desktop file and fill it up, open the software with MIME-TYPE
 echo "creating .desktop file"
 touch ~/$NAME.desktop 
